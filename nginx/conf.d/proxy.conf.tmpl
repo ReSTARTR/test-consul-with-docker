@@ -1,0 +1,13 @@
+upstream backend {
+{{range service "web"}}
+  server {{.Address}}:80;
+{{end}}
+}
+
+server {
+  listen      8080;
+  server_name loclahost;
+  location / {
+    proxy_pass http://backend;
+  }
+}
